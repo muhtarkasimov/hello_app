@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:hello_app/view/address_widget.dart';
 import 'package:hello_app/view/language_page.dart';
 import 'package:hello_app/view/news_widget.dart';
+import 'package:hello_app/view/rates_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -34,8 +36,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
-  int _toggleSelectedPage = 0;
-  final List<bool> _selections = List.generate(2, (index) => false);
+  int _selectedToggleIndex = 0;
+  final List<bool> _selections = [true, false];
   PageController pageController = PageController();
   PageController togglePageController = PageController();
 
@@ -45,9 +47,17 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _onToggleSelected(int index) {
     setState(() {
-      _toggleSelectedPage = index;
+      _selectedToggleIndex = index;
+      if (_selections[index] == false) {
+        _selections[index] = !_selections[index];
+        if (index == 0) {
+          _selections[index + 1] = !_selections[index + 1];
+        } else {
+          _selections[index - 1] = !_selections[index - 1];
+        }
+      }
     });
-    togglePageController.jumpToPage(index);
+    togglePageController.jumpToPage(_selectedToggleIndex);
   }
 
   void _onItemTapped(int index) {
@@ -56,8 +66,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
     pageController.jumpToPage(index);
   }
-
-
 
   ButtonStyle style = ButtonStyle(
       backgroundColor: MaterialStateProperty.all(Colors.red),
@@ -159,33 +167,81 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             //TODO MAP
             Container(
-              color: Colors.red,
               child: Scaffold(
                 appBar: AppBar(
                   centerTitle: true,
                   title: Text("ATMs & Offices"),
                 ),
                 body: Column(children: [
-                  ToggleButtons(
-                    isSelected: _selections,
-                    children: [
-                      Text("On map"),
-                      Text("List"),
-                    ],
-                    onPressed: (int index) {
-                      setState(() {
+                  Container(
+                    alignment: Alignment.center,
+                    width: MediaQuery.of(context).size.width,
+                    child: ToggleButtons(
+                      isSelected: _selections,
+                      children: [
+                        Container(
+                          color: (_selections[0]) ? Colors.red : Colors.white,
+                          alignment: Alignment.center,
+                          width: MediaQuery.of(context).size.width * 0.495,
+                          child: Text(
+                            "On map",
+                            style: TextStyle(
+                                color:
+                                    _selections[0] ? Colors.white : Colors.red),
+                          ),
+                        ),
+                        Container(
+                          color: (_selections[1]) ? Colors.red : Colors.white,
+                          alignment: Alignment.center,
+                          width: MediaQuery.of(context).size.width * 0.495,
+                          child: Text(
+                            "List",
+                            style: TextStyle(
+                                color:
+                                    _selections[1] ? Colors.white : Colors.red),
+                          ),
+                        ),
+                      ],
+                      onPressed: (int index) {
                         _onToggleSelected(index);
-                      });
-                    },
+                      },
+                    ),
                   ),
-                  Expanded(child: PageView(
+                  Expanded(
+                      child: PageView(
+                    onPageChanged: _onToggleSelected,
+                    physics: const NeverScrollableScrollPhysics(),
                     controller: togglePageController,
                     children: [
                       Container(
-                        child: Text("Map"),
+                        child: Image.network(
+                            "https://media.wired.com/photos/59269cd37034dc5f91bec0f1/master/pass/GoogleMapTA.jpg"),
                       ),
                       Container(
-                        child: Text("List"),
+                        child: ListView(
+                          children: const [
+                            AddressWidget(
+                                "ATM", "BBC Bank Jorge st. ChinaTown 29/1"),
+                            AddressWidget(
+                                "ATM", "BBC Bank Jorge st. ChinaTown 29/1"),
+                            AddressWidget("Terminal",
+                                "BBC Bank Jorge st. ChinaTown 29/1"),
+                            AddressWidget("Terminal",
+                                "BBC Bank Jorge st. ChinaTown 29/1"),
+                            AddressWidget(
+                                "ATM", "BBC Bank Jorge st. ChinaTown 29/1"),
+                            AddressWidget("Terminal",
+                                "BBC Bank Jorge st. ChinaTown 29/1"),
+                            AddressWidget(
+                                "ATM", "BBC Bank Jorge st. ChinaTown 29/1"),
+                            AddressWidget("Terminal",
+                                "BBC Bank Jorge st. ChinaTown 29/1"),
+                            AddressWidget(
+                                "ATM", "BBC Bank Jorge st. ChinaTown 29/1"),
+                            AddressWidget("Terminal",
+                                "BBC Bank Jorge st. ChinaTown 29/1"),
+                          ],
+                        ),
                       ),
                     ],
                   ))
@@ -199,6 +255,35 @@ class _MyHomePageState extends State<MyHomePage> {
                 appBar: AppBar(
                   centerTitle: true,
                   title: Text("Rates"),
+                ),
+                body: ListView(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                        alignment: Alignment.centerRight,
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                                child: Text("Buy price"),),
+                            Text("Sell price"),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                      alignment: Alignment.topLeft,
+                      color: Colors.red,
+                      child: const Text("Cash courses", style: TextStyle(color: Colors.white),),
+                    ),
+                    RatesWidget("USD", "84.54", "83.45"),
+                    RatesWidget("RUR", "84.54", "83.45"),
+                    RatesWidget("KZT", "84.54", "83.45"),
+                    RatesWidget("TLR", "84.54", "83.45"),
+                  ],
                 ),
               ),
             ),
