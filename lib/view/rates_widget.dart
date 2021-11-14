@@ -10,7 +10,7 @@ class RatesWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 0, vertical: 2),
+      padding: EdgeInsets.symmetric(horizontal: 2, vertical: 2),
       child: Container(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

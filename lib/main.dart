@@ -259,15 +259,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 body: ListView(
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width,
+                      alignment: Alignment.centerRight,
+                      width: MediaQuery.of(context).size.width * 0.8,
                       child: Container(
                         alignment: Alignment.centerRight,
-                        width: MediaQuery.of(context).size.width * 0.5,
+                        padding: EdgeInsets.symmetric(horizontal: 2),
+                        width: MediaQuery.of(context).size.width * 0.45,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                                child: Text("Buy price"),),
+                          children: const [
+                            Text("Buy price"),
                             Text("Sell price"),
                           ],
                         ),
@@ -283,6 +284,47 @@ class _MyHomePageState extends State<MyHomePage> {
                     RatesWidget("RUR", "84.54", "83.45"),
                     RatesWidget("KZT", "84.54", "83.45"),
                     RatesWidget("TLR", "84.54", "83.45"),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                      alignment: Alignment.topLeft,
+                      color: Colors.red,
+                      child: const Text("Cashless courses", style: TextStyle(color: Colors.white),),
+                    ),
+                    RatesWidget("USD", "84.54", "83.45"),
+                    RatesWidget("RUR", "84.54", "83.45"),
+                    RatesWidget("KZT", "84.54", "83.45"),
+                    RatesWidget("TLR", "84.54", "83.45"),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                      alignment: Alignment.topLeft,
+                      color: Colors.red,
+                      child: const Text("Payment card courses", style: TextStyle(color: Colors.white),),
+                    ),
+                    RatesWidget("USD", "84.54", "83.45"),
+                    RatesWidget("RUR", "84.54", "83.45"),
+                    RatesWidget("KZT", "84.54", "83.45"),
+                    RatesWidget("TLR", "84.54", "83.45"),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                      alignment: Alignment.topLeft,
+                      color: Colors.red,
+                      child: const Text("Blockchain courses", style: TextStyle(color: Colors.white),),
+                    ),
+                    RatesWidget("USD", "84.54", "83.45"),
+                    RatesWidget("RUR", "84.54", "83.45"),
+                    RatesWidget("KZT", "84.54", "83.45"),
+                    RatesWidget("TLR", "84.54", "83.45"),
+                    Container(
+                      padding: EdgeInsets.symmetric(vertical: 2, horizontal: 5),
+                      alignment: Alignment.topLeft,
+                      color: Colors.red,
+                      child: const Text("Courses of drama", style: TextStyle(color: Colors.white),),
+                    ),
+                    RatesWidget("USD", "84.54", "83.45"),
+                    RatesWidget("RUR", "84.54", "83.45"),
+                    RatesWidget("KZT", "84.54", "83.45"),
+                    RatesWidget("TLR", "84.54", "83.45"),
+
                   ],
                 ),
               ),
