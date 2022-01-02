@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.red,
       ),
-      home: const MyHomePage(title: 'Online Bank'),
+      home: const MyHomePage(title: 'Red Bank Online Bank'),
     );
   }
 }
